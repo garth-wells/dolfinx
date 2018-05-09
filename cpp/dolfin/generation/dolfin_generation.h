@@ -14,3 +14,5 @@ namespace dolfin
 #include <dolfin/generation/BoxMesh.h>
 #include <dolfin/generation/IntervalMesh.h>
 #include <dolfin/generation/RectangleMesh.h>
+#include <dolfin/generation/UnitDiscMesh.h>
+#include <dolfin/generation/UnitSphereMesh.h>

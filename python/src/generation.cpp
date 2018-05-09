@@ -9,6 +9,7 @@
 #include <dolfin/generation/IntervalMesh.h>
 #include <dolfin/generation/RectangleMesh.h>
 #include <dolfin/generation/UnitDiscMesh.h>
+#include <dolfin/generation/UnitSphereMesh.h>
 #include <dolfin/generation/UnitTriangleMesh.h>
 #include <dolfin/geometry/Point.h>
 #include <dolfin/mesh/CellType.h>
@@ -65,6 +66,13 @@ void generation(py::module& m)
                                dolfin::mesh::GhostMode ghost_mode) {
         return dolfin::generation::UnitDiscMesh::create(comm.get(), n, ghost_mode);
       });
+
+  // dolfin::UnitSphereMesh
+  py::class_<dolfin::generation::UnitSphereMesh>(m, "UnitSphereMesh")
+          .def_static("create", [](const MPICommWrapper comm, std::size_t n,
+                                   dolfin::mesh::GhostMode ghost_mode) {
+            return dolfin::generation::UnitSphereMesh::create(comm.get(), n, ghost_mode);
+          });
 
   // dolfin::BoxMesh
   py::class_<dolfin::generation::BoxMesh,

@@ -4,6 +4,7 @@ set(HEADERS
   IntervalMesh.h
   RectangleMesh.h
   UnitDiscMesh.h
+  UnitSphereMesh.h
   UnitTetrahedronMesh.h
   UnitTriangleMesh.h
   PARENT_SCOPE)
@@ -13,6 +14,7 @@ set(SOURCES
   IntervalMesh.cpp
   RectangleMesh.cpp
   UnitDiscMesh.cpp
+  UnitSphereMesh.cpp
   UnitTetrahedronMesh.cpp
   UnitTriangleMesh.cpp
   PARENT_SCOPE)
