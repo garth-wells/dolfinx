@@ -43,7 +43,7 @@ mesh::Mesh UnitSphereMesh::build_icosahedron_surface_mesh(
   EigenRowArrayXXd points(12, 3);
 
   points.block(0, 0, 12, 3) <<
-                            -1.0, gr, 0.0,
+          -1.0, gr, 0.0,
           -gr, 0.0, 1.0,
           0.0, 1.0, gr,
           1.0, gr, 0.0,
@@ -59,7 +59,7 @@ mesh::Mesh UnitSphereMesh::build_icosahedron_surface_mesh(
   EigenRowArrayXXi64 cells(20, 3);
 
   cells.block(0, 0, 20, 3) <<
-                           0, 1, 2,
+          0, 1, 2,
           0, 2, 3,
           0, 3, 4,
           0, 4, 5,
@@ -83,20 +83,22 @@ mesh::Mesh UnitSphereMesh::build_icosahedron_surface_mesh(
   mesh::Mesh initial_surface(MPI_COMM_SELF, mesh::CellType::Type::triangle,
                              points, cells, {}, mesh::GhostMode::none);
 
-  // Locally refine the intial mesh on process 0. The user may then refine further
-  // for parallel efficiency after initial mesh distribution.
-  for (std::size_t ref_level=0; ref_level<n; ++ref_level)
-    initial_surface = refinement::refine(initial_surface, false);
-
-  // Project points onto surface of the sphere
-  auto& refined_points = initial_surface.geometry().points();
-  for (std::size_t r=0; r<refined_points.rows(); ++r)
+  if (n > 0)
   {
-    double norm = 0.0;
-    for (std::size_t d = 0; d < 3; ++d)
-      norm += std::pow(refined_points(r, d), 2);
-    norm = std::pow(norm, 0.5);
-    refined_points.row(r) /= norm;
+    // Locally refine the intial mesh on process 0. The user may then refine further
+    // for parallel efficiency after initial mesh distribution.
+    for (std::size_t ref_level = 0; ref_level < n; ++ref_level)
+      initial_surface = refinement::refine(initial_surface, false);
+
+    // Project points onto surface of the sphere
+    auto &refined_points = initial_surface.geometry().points();
+    for (std::size_t r = 0; r < refined_points.rows(); ++r) {
+      double norm = 0.0;
+      for (std::size_t d = 0; d < 3; ++d)
+        norm += std::pow(refined_points(r, d), 2);
+      norm = std::pow(norm, 0.5);
+      refined_points.row(r) /= norm;
+    }
   }
 
   // Convert topology to int64_t
