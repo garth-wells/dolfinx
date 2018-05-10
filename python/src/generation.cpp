@@ -70,8 +70,10 @@ void generation(py::module& m)
   // dolfin::UnitSphereMesh
   py::class_<dolfin::generation::UnitSphereMesh>(m, "UnitSphereMesh")
           .def_static("create", [](const MPICommWrapper comm, std::size_t n,
+                                   std::size_t geo_p_dim,
                                    dolfin::mesh::GhostMode ghost_mode) {
-            return dolfin::generation::UnitSphereMesh::create(comm.get(), n, ghost_mode);
+            return dolfin::generation::UnitSphereMesh::create(
+                    comm.get(), n, geo_p_dim, ghost_mode);
           });
 
   // dolfin::BoxMesh
