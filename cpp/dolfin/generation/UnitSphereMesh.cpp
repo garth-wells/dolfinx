@@ -121,7 +121,7 @@ mesh::Mesh UnitSphereMesh::build_icosahedron_surface_mesh(
     initial_surface = geo_p_refine_mesh(initial_surface);
 
   // Interpolate points on surface of the sphere.
-  auto &refined_points = initial_surface.geometry().points();
+  auto& refined_points = initial_surface.geometry().points();
   for (std::size_t r = 0; r < refined_points.rows(); ++r) {
     double norm = 0.0;
     for (std::size_t d = 0; d < 3; ++d)
@@ -156,6 +156,7 @@ mesh::Mesh UnitSphereMesh::geo_p_refine_mesh(const mesh::Mesh& mesh)
   const std::size_t num_edges = (std::size_t) mesh.num_entities(1);
   const std::size_t num_cells = mesh.num_cells();
   const std::size_t num_verts = mesh.num_vertices();
+
   assert(num_edges > 0);
   std::vector<geometry::Point> edge_midpoints(num_edges);
 
