@@ -122,7 +122,7 @@ mesh::Mesh UnitSphereMesh::build_icosahedron_surface_mesh(
 
   // Interpolate points on surface of the sphere.
   auto& refined_points = initial_surface.geometry().points();
-  for (std::size_t r = 0; r < refined_points.rows(); ++r) {
+  for (std::int64_t r = 0; r < refined_points.rows(); ++r) {
     double norm = 0.0;
     for (std::size_t d = 0; d < 3; ++d)
       norm += std::pow(refined_points(r, d), 2);
